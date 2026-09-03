@@ -18,8 +18,8 @@ import java.util.concurrent.CompletableFuture;
  */
 public final class UpdateChecker {
 
-    private static final String RELEASES_URL = "https://api.github.com/repos/aurickk/OpSec/releases/latest";
-    private static final String FALLBACK_RELEASE_URL = "https://github.com/aurickk/OpSec/releases/latest";
+    private static final String RELEASES_URL = "https://api.github.com/repos/tufkan1/OpSec/releases/latest";
+    private static final String FALLBACK_RELEASE_URL = "https://github.com/tufkan1/OpSec/releases/latest";
 
     private static final HttpClient HTTP_CLIENT = HttpClient.newBuilder()
             .connectTimeout(Duration.ofSeconds(10))

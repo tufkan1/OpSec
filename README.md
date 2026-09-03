@@ -11,8 +11,8 @@
 <a href="https://modrinth.com/mod/opsec/versions"><img alt="Supported Minecraft Versions" src="https://img.shields.io/badge/Available%20for-1.20%20%E2%80%93%2026.2-00AF5C"></a>
 <a href="https://www.curseforge.com/minecraft/mc-mods/opsec"><img alt="CurseForge Downloads" src="https://img.shields.io/curseforge/dt/1519411?logo=curseforge&logoColor=white&label=Curseforge&color=F16436"></a>
 <a href="https://www.curseforge.com/minecraft/mc-mods/opsec"><img alt="Supported Minecraft Versions" src="https://img.shields.io/badge/Available%20for-1.20%20%E2%80%93%2026.2-F16436"></a>
-<a href="https://github.com/aurickk/OpSec/releases"><img alt="GitHub Downloads" src="https://img.shields.io/github/downloads/aurickk/OpSec/total?logo=github&logoColor=white&label=GitHub&color=6e5494"></a>
-<a href="https://github.com/aurickk/OpSec/releases/latest"><img alt="GitHub Release" src="https://img.shields.io/github/v/release/aurickk/OpSec?logo=github&logoColor=white&label=Release&color=6e5494"></a>
+<a href="https://github.com/tufkan1/OpSec/releases"><img alt="GitHub Downloads" src="https://img.shields.io/github/downloads/tufkan1/OpSec/total?logo=github&logoColor=white&label=GitHub&color=6e5494"></a>
+<a href="https://github.com/tufkan1/OpSec/releases/latest"><img alt="GitHub Release" src="https://img.shields.io/github/v/release/tufkan1/OpSec?logo=github&logoColor=white&label=Release&color=6e5494"></a>
 </p>
 
 
@@ -22,7 +22,7 @@
 > [!IMPORTANT]
 > Fake phishing sites and Discord servers has been distributing **trojanized** builds of OpSec. Only download OpSec from these official sources:
 > - **[Modrinth](https://modrinth.com/mod/opsec)**
-> - **[GitHub Releases](https://github.com/aurickk/OpSec/releases)**
+> - **[GitHub Releases](https://github.com/tufkan1/OpSec/releases)**
 > - **[CurseForge](https://www.curseforge.com/minecraft/mc-mods/opsec)** (updated less frequently)
 >
 > Builds from anywhere else are not official and may be malicious.

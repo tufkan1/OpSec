@@ -1,4 +1,4 @@
-﻿name: Release
+name: Release
 
 on:
   push:
@@ -33,7 +33,7 @@ jobs:
         id: collect_artifacts
         run: |
           mkdir -p release_artifacts
-          find versions -type f -name  opsec-*.jar ! -name *-sources.jar ! -name *-dev.jar -exec cp {} release_artifacts/ \;
+          find versions -path "*/build/libs/opsec-*.jar" ! -name "*-sources.jar" ! -name "*-dev.jar" -exec cp {} release_artifacts/ \;
           ls -la release_artifacts/
 
       - name: Create GitHub Release
