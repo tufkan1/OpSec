@@ -58,7 +58,7 @@ public class AddAccountScreen extends Screen {
                 20,
                 OpsecLang.component(OpsecStrings.ACCOUNT_SCREEN_SESSION_LABEL)
         );
-        this.tokenInput.setMaxLength(2000);
+        this.tokenInput.setMaxLength(8192);
         this.tokenInput.setHint(OpsecLang.component(OpsecStrings.ACCOUNT_SCREEN_SESSION_HINT));
         this.addRenderableWidget(this.tokenInput);
 
@@ -71,7 +71,7 @@ public class AddAccountScreen extends Screen {
                 20,
                 OpsecLang.component(OpsecStrings.ACCOUNT_SCREEN_REFRESH_LABEL)
         );
-        this.refreshTokenInput.setMaxLength(2000);
+        this.refreshTokenInput.setMaxLength(8192);
         this.refreshTokenInput.setHint(OpsecLang.component(OpsecStrings.ACCOUNT_SCREEN_REFRESH_HINT));
         this.addRenderableWidget(this.refreshTokenInput);
         
@@ -98,6 +98,27 @@ public class AddAccountScreen extends Screen {
     private void addAccount() {
         String token = tokenInput.getValue().trim();
         String refreshToken = refreshTokenInput.getValue().trim();
+
+        // Auto-extract JSON if user pasted launcher export / JSON
+        if (token.startsWith("{") && token.endsWith("}")) {
+            try {
+                com.google.gson.JsonObject json = com.google.gson.JsonParser.parseString(token).getAsJsonObject();
+                if (json.has("accessToken")) {
+                    token = json.get("accessToken").getAsString();
+                } else if (json.has("access_token")) {
+                    token = json.get("access_token").getAsString();
+                } else if (json.has("token")) {
+                    token = json.get("token").getAsString();
+                }
+                if (refreshToken.isEmpty()) {
+                    if (json.has("refreshToken")) {
+                        refreshToken = json.get("refreshToken").getAsString();
+                    } else if (json.has("refresh_token")) {
+                        refreshToken = json.get("refresh_token").getAsString();
+                    }
+                }
+            } catch (Exception ignored) {}
+        }
         
         if (token.isEmpty()) {
             statusMessage = OpsecLang.component(OpsecStrings.ACCOUNT_ERROR_EMPTY_TOKEN);
@@ -119,10 +140,12 @@ public class AddAccountScreen extends Screen {
         }
         
         // Validate in background thread
+        final String finalToken = token;
+        final String finalRefreshToken = refreshToken;
         CompletableFuture.runAsync(() -> {
-            SessionAccount account = refreshToken.isEmpty() 
-                    ? new SessionAccount(token)
-                    : new SessionAccount(token, refreshToken);
+            SessionAccount account = finalRefreshToken.isEmpty() 
+                    ? new SessionAccount(finalToken)
+                    : new SessionAccount(finalToken, finalRefreshToken);
             boolean valid = account.fetchInfo();
             
             // Update UI on main thread

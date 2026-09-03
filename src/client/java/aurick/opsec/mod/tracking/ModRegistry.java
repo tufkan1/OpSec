@@ -905,6 +905,18 @@ public class ModRegistry {
             return Collections.unmodifiableSet(mapped);
         }
 
+        // Dynamic prefix/fuzzy match for installed mods (e.g. plasmo -> plasmovoice)
+        for (ModContainer mod : FabricLoader.getInstance().getAllMods()) {
+            String id = mod.getMetadata().getId();
+            if (PLATFORM_MODS.contains(id)) continue;
+            String normalizedId = id.replace("-", "").replace("_", "").toLowerCase();
+            String normalizedNs = namespace.replace("-", "").replace("_", "").toLowerCase();
+            if (normalizedId.startsWith(normalizedNs) || normalizedNs.startsWith(normalizedId)) {
+                recordNamespaceMapping(namespace, id);
+                return Set.of(id);
+            }
+        }
+
         return Set.of();
     }
 
@@ -997,6 +1009,35 @@ public class ModRegistry {
                 }
             }
         }
+    }
+
+    /**
+     * Scans all installed mods for assets/ and data/ namespaces to automatically
+     * map custom namespaces (like 'plasmo', 'jm', 'audioplayer') to their container mod ID.
+     */
+    public static void scanInstalledModNamespaces() {
+        for (ModContainer mod : FabricLoader.getInstance().getAllMods()) {
+            String modId = mod.getMetadata().getId();
+            if (PLATFORM_MODS.contains(modId)) continue;
+
+            for (java.nio.file.Path root : mod.getRootPaths()) {
+                scanDirNamespaces(root.resolve("assets"), modId);
+                scanDirNamespaces(root.resolve("data"), modId);
+            }
+        }
+    }
+
+    private static void scanDirNamespaces(java.nio.file.Path parentDir, String modId) {
+        if (parentDir == null || !java.nio.file.Files.isDirectory(parentDir)) return;
+        try (var stream = java.nio.file.Files.list(parentDir)) {
+            stream.filter(java.nio.file.Files::isDirectory)
+                  .forEach(p -> {
+                      String ns = p.getFileName().toString();
+                      if (!VANILLA_PACK_NAMESPACE.equals(ns) && !FABRIC_PACK_NAMESPACE.equals(ns)) {
+                          recordNamespaceMapping(ns, modId);
+                      }
+                  });
+        } catch (Exception ignored) {}
     }
 
     private static final int MIN_CHILDREN_FOR_PREFIX_ALIAS = 2;

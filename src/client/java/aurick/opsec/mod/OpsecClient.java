@@ -56,6 +56,7 @@ public class OpsecClient implements ClientModInitializer {
 
 		// Scan for registered channels after all mods have initialized
 		ClientLifecycleEvents.CLIENT_STARTED.register(client -> {
+			ModRegistry.scanInstalledModNamespaces(); // Scan assets/data namespaces for all installed mods
 			ModRegistry.inferJijNamespaceAliases();  // must run before scanRegisteredChannels
 			scanRegisteredChannels();
 			// Fallback: scan mods for language files if mixin didn't catch them
@@ -138,30 +139,35 @@ public class OpsecClient implements ClientModInitializer {
 				continue;
 			}
 			
-			// Check if this mod has a language file
+			// Check if this mod has language files in any of its asset namespaces
 			boolean found = false;
 			for (Path rootPath : mod.getRootPaths()) {
-				Path langFile = rootPath.resolve("assets/" + modId + "/lang/en_us.json");
-				if (Files.exists(langFile)) {
-					found = true;
-					// This mod has a language file - register it
-					try (InputStreamReader reader = new InputStreamReader(Files.newInputStream(langFile))) {
-						JsonObject json = JsonParser.parseReader(reader).getAsJsonObject();
-						int keyCount = 0;
-						for (String key : json.keySet()) {
-							ModRegistry.recordTranslationKey(modId, key);
-							keyCount++;
+				Path assetsDir = rootPath.resolve("assets");
+				if (!Files.isDirectory(assetsDir)) continue;
+				try (var nsStream = Files.list(assetsDir)) {
+					for (Path nsDir : (Iterable<Path>) nsStream::iterator) {
+						if (!Files.isDirectory(nsDir)) continue;
+						Path langFile = nsDir.resolve("lang/en_us.json");
+						if (Files.exists(langFile)) {
+							found = true;
+							try (InputStreamReader reader = new InputStreamReader(Files.newInputStream(langFile))) {
+								JsonObject json = JsonParser.parseReader(reader).getAsJsonObject();
+								int keyCount = 0;
+								for (String key : json.keySet()) {
+									ModRegistry.recordTranslationKey(modId, key);
+									keyCount++;
+								}
+								if (keyCount > 0) {
+									Opsec.LOGGER.debug("[OpSec] Fallback: Registered {} translation keys for mod '{}' (ns: {})", keyCount, modId, nsDir.getFileName());
+									modsWithLang++;
+									modsAdded++;
+								}
+							} catch (Exception e) {
+								Opsec.LOGGER.debug("[OpSec] Could not read language file for {} ({}): {}", modId, langFile, e.getMessage());
+							}
 						}
-						if (keyCount > 0) {
-							Opsec.LOGGER.debug("[OpSec] Fallback: Registered {} translation keys for mod '{}'", keyCount, modId);
-							modsWithLang++;
-							modsAdded++;
-						}
-					} catch (Exception e) {
-						Opsec.LOGGER.debug("[OpSec] Could not read language file for {}: {}", modId, e.getMessage());
 					}
-					break; // Only check first root path
-				}
+				} catch (Exception ignored) {}
 			}
 			
 			// If no language file found, still count if mod has channels
