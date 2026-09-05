@@ -9,8 +9,8 @@
 	],
 	"contact": {
 		"homepage": "https://modrinth.com/mod/opsec",
-		"sources": "https://github.com/aurickk/OpSec",
-		"issues": "https://github.com/aurickk/OpSec/issues"
+		"sources": "https://github.com/tufkan1/OpSec",
+		"issues": "https://github.com/tufkan1/OpSec/issues"
 	},
 	"license": "GPL-3.0-only",
 	"icon": "assets/opsec/icon.png",
