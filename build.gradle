@@ -113,6 +113,7 @@ dependencies {
     if (isUnobfuscated) {
         implementation(loaderCoord)
         implementation(apiCoord)
+        implementation("org.lwjgl:lwjgl-tinyfd:3.4.1")
         implementation("com.terraformersmc:modmenu:${modmenu_version}") {
             exclude group: "eu.pb4", module: "placeholder-api"
         }

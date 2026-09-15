@@ -24,7 +24,7 @@ import java.util.concurrent.CompletableFuture;
  */
 public final class JarIntegrityChecker {
 
-    private static final String RELEASES_BASE_URL = "https://api.github.com/repos/aurickk/OpSec/releases/tags/V";
+    private static final String RELEASES_BASE_URL = "https://api.github.com/repos/tufkan1/OpSec/releases/tags/V";
 
     private static final HttpClient HTTP_CLIENT = HttpClient.newBuilder()
             .connectTimeout(Duration.ofSeconds(10))

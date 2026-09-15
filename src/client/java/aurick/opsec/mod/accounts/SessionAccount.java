@@ -6,7 +6,9 @@ import aurick.opsec.mod.mixin.client.MinecraftAccessor;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.mojang.authlib.minecraft.UserApiService;
+//? if <26.3 {
 import com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService;
+//?}
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.User;
 import net.minecraft.client.multiplayer.ProfileKeyPairManager;
@@ -343,13 +345,12 @@ public class SessionAccount implements Account {
             accessor.opsec$setUser(newUser);
             
             // Reinitialize authentication services
-            YggdrasilAuthenticationService authService = new YggdrasilAuthenticationService(mc.getProxy());
-            
-            // Reinitialize user API service (needed for chat signing)
-            UserApiService userApiService = authService.createUserApiService(accessToken);
+            //? if >=26.3 {
+            /*com.mojang.authlib.services.MinecraftServicesDiscoveryService discoveryService = 
+                    com.mojang.authlib.services.MinecraftServicesDiscoveryService.create(mc.getProxy(), false);
+            UserApiService userApiService = discoveryService.createUserApiService(accessToken);
             accessor.opsec$setUserApiService(userApiService);
             
-            // Reinitialize profile key pair manager (for chat signatures)
             ProfileKeyPairManager profileKeyPairManager = ProfileKeyPairManager.create(
                     userApiService, 
                     newUser, 
@@ -357,16 +358,45 @@ public class SessionAccount implements Account {
             );
             accessor.opsec$setProfileKeyPairManager(profileKeyPairManager);
             
-            // Reinitialize social manager
-            //? if >=26.2 {
-            /*com.mojang.authlib.yggdrasil.FriendsService friendsService = authService.createFriendsService(accessToken);
+            com.mojang.authlib.services.FriendsService friendsService = discoveryService.createFriendsService(accessToken);
             net.minecraft.client.gui.screens.social.RemoteFriendListUpdateHandler updateHandler =
                     new net.minecraft.client.gui.screens.social.RemoteFriendListUpdateHandler(friendsService, mc);
-            PlayerSocialManager socialManager = new PlayerSocialManager(mc, userApiService, friendsService, updateHandler);*/
-            //?} else {
-            PlayerSocialManager socialManager = new PlayerSocialManager(mc, userApiService);
-            //?}
+            PlayerSocialManager socialManager = new PlayerSocialManager(mc, userApiService, friendsService, updateHandler);
             accessor.opsec$setPlayerSocialManager(socialManager);
+            */
+            //?} else if >=26.2 {
+            /*YggdrasilAuthenticationService authService = new YggdrasilAuthenticationService(mc.getProxy());
+            UserApiService userApiService = authService.createUserApiService(accessToken);
+            accessor.opsec$setUserApiService(userApiService);
+            
+            ProfileKeyPairManager profileKeyPairManager = ProfileKeyPairManager.create(
+                    userApiService, 
+                    newUser, 
+                    mc.gameDirectory.toPath()
+            );
+            accessor.opsec$setProfileKeyPairManager(profileKeyPairManager);
+            
+            com.mojang.authlib.yggdrasil.FriendsService friendsService = authService.createFriendsService(accessToken);
+            net.minecraft.client.gui.screens.social.RemoteFriendListUpdateHandler updateHandler =
+                    new net.minecraft.client.gui.screens.social.RemoteFriendListUpdateHandler(friendsService, mc);
+            PlayerSocialManager socialManager = new PlayerSocialManager(mc, userApiService, friendsService, updateHandler);
+            accessor.opsec$setPlayerSocialManager(socialManager);
+            */
+            //?} else {
+            YggdrasilAuthenticationService authService = new YggdrasilAuthenticationService(mc.getProxy());
+            UserApiService userApiService = authService.createUserApiService(accessToken);
+            accessor.opsec$setUserApiService(userApiService);
+            
+            ProfileKeyPairManager profileKeyPairManager = ProfileKeyPairManager.create(
+                    userApiService, 
+                    newUser, 
+                    mc.gameDirectory.toPath()
+            );
+            accessor.opsec$setProfileKeyPairManager(profileKeyPairManager);
+            
+            PlayerSocialManager socialManager = new PlayerSocialManager(mc, userApiService);
+            accessor.opsec$setPlayerSocialManager(socialManager);
+            //?}
             
             Opsec.LOGGER.info("[OpSec] Successfully logged in as: {}", username);
             return true;

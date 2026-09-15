@@ -50,7 +50,11 @@ public class UpdateScreen extends Screen {
 
         // Download button (green text)
         this.addRenderableWidget(Button.builder(Component.literal(OpsecLang.tr(OpsecStrings.UPDATE_DOWNLOAD)), button -> {
+            //? if >=26.3 {
+            /*com.mojang.blaze3d.Blaze3D.openUri(java.net.URI.create(UpdateChecker.getReleaseUrl()));*/
+            //?} else {
             Util.getPlatform().openUri(UpdateChecker.getReleaseUrl());
+            //?}
             this.onClose();
         }).bounds(centerX - buttonWidth / 2, firstButtonY, buttonWidth, buttonHeight).build());
 

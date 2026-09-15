@@ -1266,7 +1266,9 @@ public class OpsecConfigScreen extends Screen {
 
     private void openReleaseUrl() {
         try {
-            //? if >=1.21.11 {
+            //? if >=26.3 {
+            /*com.mojang.blaze3d.Blaze3D.openUri(java.net.URI.create(UpdateChecker.getReleaseUrl()));*/
+            //?} elif >=1.21.11 {
             /*net.minecraft.util.Util.getPlatform().openUri(UpdateChecker.getReleaseUrl());*/
             //?} else {
             net.minecraft.Util.getPlatform().openUri(UpdateChecker.getReleaseUrl());

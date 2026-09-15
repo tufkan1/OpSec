@@ -7,25 +7,20 @@
 <p align="center">A client-side Minecraft mod that provides protection against client fingerprinting, tracking exploits, and other privacy focused features.</p>
 
 <p align="center">
-<a href="https://modrinth.com/mod/opsec"><img alt="Modrinth Downloads" src="https://img.shields.io/modrinth/dt/opsec?logo=modrinth&logoColor=white&label=Modrinth&color=00AF5C"></a>
-<a href="https://modrinth.com/mod/opsec/versions"><img alt="Supported Minecraft Versions" src="https://img.shields.io/badge/Available%20for-1.20%20%E2%80%93%2026.2-00AF5C"></a>
-<a href="https://www.curseforge.com/minecraft/mc-mods/opsec"><img alt="CurseForge Downloads" src="https://img.shields.io/curseforge/dt/1519411?logo=curseforge&logoColor=white&label=Curseforge&color=F16436"></a>
-<a href="https://www.curseforge.com/minecraft/mc-mods/opsec"><img alt="Supported Minecraft Versions" src="https://img.shields.io/badge/Available%20for-1.20%20%E2%80%93%2026.2-F16436"></a>
-<a href="https://github.com/tufkan1/OpSec/releases"><img alt="GitHub Downloads" src="https://img.shields.io/github/downloads/tufkan1/OpSec/total?logo=github&logoColor=white&label=GitHub&color=6e5494"></a>
+<a href="https://github.com/tufkan1/OpSec/releases"><img alt="Supported Minecraft Versions" src="https://img.shields.io/badge/Available%20for-1.20%20%E2%80%93%2026.3-00AF5C"></a>
+<a href="https://github.com/tufkan1/OpSec/releases"><img alt="GitHub Downloads" src="https://img.shields.io/github/downloads/tufkan1/OpSec/total?logo=github&logoColor=white&label=GitHub%20Downloads&color=6e5494"></a>
 <a href="https://github.com/tufkan1/OpSec/releases/latest"><img alt="GitHub Release" src="https://img.shields.io/github/v/release/tufkan1/OpSec?logo=github&logoColor=white&label=Release&color=6e5494"></a>
+<a href="https://github.com/tufkan1/OpSec/issues"><img alt="GitHub Issues" src="https://img.shields.io/github/issues/tufkan1/OpSec?logo=github&logoColor=white&label=Issues&color=blue"></a>
 </p>
 
-
-> [!WARNING]
-> This is a passion project built and maintained with **AI**.
+> [!NOTE]
+> **Community Fork**: This repository is an AI-assisted open-source community continuation and fork of [aurickk/OpSec](https://github.com/aurickk/OpSec), actively maintained with modern Minecraft updates, bugfixes, and multi-version compatibility.
 
 > [!IMPORTANT]
-> Fake phishing sites and Discord servers has been distributing **trojanized** builds of OpSec. Only download OpSec from these official sources:
-> - **[Modrinth](https://modrinth.com/mod/opsec)**
-> - **[GitHub Releases](https://github.com/tufkan1/OpSec/releases)**
-> - **[CurseForge](https://www.curseforge.com/minecraft/mc-mods/opsec)** (updated less frequently)
->
-> Builds from anywhere else are not official and may be malicious.
+> **Minecraft 26.3 (Wilderness Bound) Support**: 26.3 compatibility has been implemented and thoroughly verified locally on the client and build system across all targets. Because public multiplayer servers are in the early stages of transitioning to 26.3, live multiplayer scenarios are being monitored. If you encounter any issues or compatibility quirks on 26.3, please open a ticket on the **[Issues](https://github.com/tufkan1/OpSec/issues)** page!
+
+> [!WARNING]
+> Only download official OpSec releases directly from **[GitHub Releases](https://github.com/tufkan1/OpSec/releases)**. Builds from untrusted third-party sites or unofficial Discord servers may be trojanized or malicious.
 
 ## What it does 
 
@@ -47,15 +42,15 @@
 
 ## Requirements
 
-- **Minecraft** 1.20 – 26.2
+- **Minecraft** 1.20 – 26.3
 - **Fabric Loader** 0.16.0+ (0.18.5+ for MC 26.1.x)
 - **Fabric API** (matching your Minecraft version)
 
 ### Installation
 
 1. Install [Fabric Loader](https://fabricmc.net/use/) for your Minecraft version
-2. Download the latest [Fabric API](https://modrinth.com/mod/fabric-api) for your Minecraft version
-3. Download the latest `opsec-[minecraft_version]+[version].jar` from the [Releases](https://github.com/aurickk/OpSec/releases/) page
+2. Download the latest [Fabric API](https://github.com/FabricMC/fabric-api/releases) for your Minecraft version
+3. Download the latest `opsec-[minecraft_version]+[version].jar` from the **[GitHub Releases](https://github.com/tufkan1/OpSec/releases/)** page
 4. Place both mods in your `.minecraft/mods` folder
 5. Launch Minecraft
 
@@ -362,17 +357,17 @@ OpSec blocks telemetry sending to Mojang when telemetry blocking is enabled. Doe
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/aurickk/OpSec.git
+   git clone https://github.com/tufkan1/OpSec.git
    cd OpSec
    ```
 
 2. **Build all versions**
    ```bash
    # Windows
-   .\gradlew.bat build
+   .\gradlew.bat buildAll
    
    # Linux/Mac
-   ./gradlew build
+   ./gradlew buildAll
    ```
 
 3. **Build a specific version**
@@ -389,6 +384,7 @@ OpSec blocks telemetry sending to Mojang when telemetry blocking is enabled. Doe
    ./gradlew :1.21.11:build
    ./gradlew :26.1:build
    ./gradlew :26.2:build
+   ./gradlew :26.3:build
    ```
 
 Output JARs are located in `versions/<minecraft_version>/build/libs/`:
@@ -405,6 +401,7 @@ Output JARs are located in `versions/<minecraft_version>/build/libs/`:
 | 1.21.11 | 1.21.11 |
 | 26.1 | 26.1 – 26.1.2 |
 | 26.2 | 26.2 |
+| 26.3 | 26.3 |
 
 
 ## References

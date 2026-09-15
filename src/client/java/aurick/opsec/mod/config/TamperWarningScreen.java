@@ -71,7 +71,11 @@ public class TamperWarningScreen extends Screen {
 
         // Buttons stacked vertically, centered horizontally
         this.addRenderableWidget(Button.builder(Component.literal(OpsecLang.tr(OpsecStrings.TAMPER_DOWNLOAD)), button -> {
+            //? if >=26.3 {
+            /*com.mojang.blaze3d.Blaze3D.openUri(java.net.URI.create(UpdateChecker.getReleaseUrl()));*/
+            //?} else {
             Util.getPlatform().openUri(UpdateChecker.getReleaseUrl());
+            //?}
             this.onClose();
         }).bounds(centerX - buttonWidth / 2, y, buttonWidth, buttonHeight).build());
 

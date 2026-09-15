@@ -1,6 +1,58 @@
 package aurick.opsec.mod.mixin.client;
 
-//? if >=1.20.5 {
+//? if >=26.3 {
+/*import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import com.llamalad7.mixinextras.sugar.Local;
+import aurick.opsec.mod.config.OpsecConfig;
+import aurick.opsec.mod.protection.LangOnlyPackResources;
+import aurick.opsec.mod.protection.PackStripHandler;
+import net.minecraft.client.resources.server.DownloadedPackSource;
+import net.minecraft.client.resources.server.PackReloadConfig;
+import net.minecraft.server.packs.FilePackResources;
+import net.minecraft.server.packs.PackLocationInfo;
+import net.minecraft.server.packs.PackMetadataResources;
+import net.minecraft.server.packs.PackResources;
+import net.minecraft.server.packs.repository.Pack;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+
+import java.nio.file.Path;
+import java.util.stream.Stream;
+
+// 26.3+ multi-pack era.
+@Mixin(DownloadedPackSource.class)
+public abstract class DownloadedPackSourceMixin {
+
+    @WrapOperation(
+        method = "loadRequestedPacks",
+        at = @At(value = "NEW", target = "(Ljava/nio/file/Path;)Lnet/minecraft/server/packs/FilePackResources$FileResourcesSupplier;"))
+    private FilePackResources.FileResourcesSupplier opsec$wrapFilePackSupplier(
+            Path file,
+            Operation<FilePackResources.FileResourcesSupplier> original,
+            @Local PackReloadConfig.IdAndPath idAndPath) {
+
+        FilePackResources.FileResourcesSupplier real = original.call(file);
+
+        if (!OpsecConfig.getInstance().shouldWrapServerPacks()) return real;
+
+        final java.util.UUID packId = idAndPath.id();
+        if (!PackStripHandler.isWrapped(packId)) return real;
+
+        return new FilePackResources.FileResourcesSupplier(file) {
+            @Override
+            public PackMetadataResources openMetadata(PackLocationInfo loc) {
+                return real.openMetadata(loc);
+            }
+
+            @Override
+            public Stream<PackResources> openResources(PackLocationInfo loc, Pack.Metadata md) {
+                return real.openResources(loc, md).map(res -> new LangOnlyPackResources(res, packId));
+            }
+        };
+    }
+}
+*///?} elif >=1.20.5 {
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
