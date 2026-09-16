@@ -7,6 +7,7 @@
 <p align="center">A client-side Minecraft mod that provides protection against client fingerprinting, tracking exploits, and other privacy focused features.</p>
 
 <p align="center">
+<a href="https://modrinth.com/mod/opsec-ce"><img alt="Modrinth" src="https://img.shields.io/badge/Modrinth-opsec--ce-00AF5C?logo=modrinth&logoColor=white"></a>
 <a href="https://github.com/tufkan1/OpSec/releases"><img alt="Supported Minecraft Versions" src="https://img.shields.io/badge/Available%20for-1.20%20%E2%80%93%2026.3-00AF5C"></a>
 <a href="https://github.com/tufkan1/OpSec/releases"><img alt="GitHub Downloads" src="https://img.shields.io/github/downloads/tufkan1/OpSec/total?logo=github&logoColor=white&label=GitHub%20Downloads&color=6e5494"></a>
 <a href="https://github.com/tufkan1/OpSec/releases/latest"><img alt="GitHub Release" src="https://img.shields.io/github/v/release/tufkan1/OpSec?logo=github&logoColor=white&label=Release&color=6e5494"></a>

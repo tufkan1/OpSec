@@ -38,8 +38,75 @@ jobs:
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
+        if: startsWith(github.ref, 'refs/tags/')
         with:
           files: release_artifacts/*
           generate_release_notes: true
           draft: false
           prerelease: false
+
+      - name: Upload Built Jars Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: built-jars
+          path: release_artifacts/
+          retention-days: 1
+
+  publish-modrinth:
+    needs: release
+    if: env.MODRINTH_TOKEN != ''
+    env:
+      MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - target: "1.20.1"
+            pattern: "opsec-1.20-1.20.1+*.jar"
+          - target: "1.20.2"
+            pattern: "opsec-1.20.2+*.jar"
+          - target: "1.20.4"
+            pattern: "opsec-1.20.3-1.20.4+*.jar"
+          - target: "1.20.6"
+            pattern: "opsec-1.20.5-1.20.6+*.jar"
+          - target: "1.21.1"
+            pattern: "opsec-1.21-1.21.1+*.jar"
+          - target: "1.21.4"
+            pattern: "opsec-1.21.2-1.21.5+*.jar"
+          - target: "1.21.6"
+            pattern: "opsec-1.21.6-1.21.8+*.jar"
+          - target: "1.21.9"
+            pattern: "opsec-1.21.9-1.21.10+*.jar"
+          - target: "1.21.11"
+            pattern: "opsec-1.21.11+*.jar"
+          - target: "26.1"
+            pattern: "opsec-26.1-26.1.2+*.jar"
+          - target: "26.2"
+            pattern: "opsec-26.2+*.jar"
+          - target: "26.3"
+            pattern: "opsec-26.3+*.jar"
+    steps:
+      - name: Download Built Jars
+        uses: actions/download-artifact@v4
+        with:
+          name: built-jars
+          path: jars
+
+      - name: Set Release Version Name
+        id: ver
+        run: |
+          TAG="${GITHUB_REF_NAME}"
+          if [ -z "$TAG" ] || [ "$TAG" = "main" ] || [ "$TAG" = "master" ]; then
+            TAG="v1.1.7.3"
+          fi
+          echo "tag=$TAG" >> $GITHUB_OUTPUT
+
+      - name: Publish ${{ matrix.target }} to Modrinth
+        uses: Kir-Antipov/mc-publish@v3.3
+        with:
+          modrinth-id: opsec-ce
+          modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
+          files: jars/${{ matrix.pattern }}
+          name: OpSec ${{ steps.ver.outputs.tag }} [${{ matrix.target }}]
+          version: ${{ steps.ver.outputs.tag }}+${{ matrix.target }}
