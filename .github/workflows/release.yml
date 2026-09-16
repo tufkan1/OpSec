@@ -54,9 +54,6 @@ jobs:
 
   publish-modrinth:
     needs: release
-    if: env.MODRINTH_TOKEN != ''
-    env:
-      MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
