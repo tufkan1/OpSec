@@ -1,5 +1,5 @@
 <p align="center">
-<img src="https://github.com/user-attachments/assets/9adba640-2570-4c22-9355-4f13aa5d4507" alt="opsectransparent" width="15%"/>
+<img src=".github/assets/logo.png" alt="opsectransparent" width="15%"/>
 </p>
 <h1 align="center">OpSec</h1>
 
@@ -59,7 +59,7 @@
 
 The settings menu is accessible via the `OpSec` button in the multiplayer server selection menu header or via [Mod Menu](https://modrinth.com/mod/modmenu).
 
-<img width="1465" height="820" alt="image" src="https://github.com/user-attachments/assets/c69a768b-60ac-4f78-9705-184f6c4e4495" />
+<img width="1465" height="820" alt="image" src=".github/assets/config.png" />
 
 
 If settings are changed while connected to a server it is recommended to reconnect to the server to ensure changes are applied.
@@ -229,7 +229,7 @@ When the server uses a sign exploit with fallback value on Meteor Client:
 'key.meteor-client.open-gui' 'Right Shift'→'key.meteor-client.open-gui'
 ```
 
-<img width="847" height="107" alt="image" src="https://github.com/user-attachments/assets/e157ae3f-6beb-4823-aca0-9c61573264e2" />
+<img width="847" height="107" alt="image" src=".github/assets/meteor_exploit.png" />
 
 What a Vanilla response would actaully be:
 ```
@@ -237,7 +237,7 @@ What a Vanilla response would actaully be:
 ```
 OpSec's bandaid fix for Meteor is to blacklist the `AbstractSignEditScreenMixin` Mixin to disable Meteor's broken key resolution protection. Allowing OpSec's protection to take over, which already handle fallbacks correctly to match the Vanilla response.
 
-<img width="901" height="107" alt="image" src="https://github.com/user-attachments/assets/506b9c73-6747-40f8-9a56-52c0353034b4" />
+<img width="901" height="107" alt="image" src=".github/assets/meteor_fix.png" />
 
 ---
 
@@ -287,7 +287,7 @@ OpSec intercepts the outgoing `ServerboundSelectKnownPacks` response and strips 
 
 Some mods require server communication to function properly (e.g., VoiceChat, Xaero's Minimap quick travel). The whitelist allows you to exempt specific mods from channel spoofing, key resolution protection, known-pack filtering, and shader override stripping.
 
-<img width="853" height="478" alt="whitelist settings menu" src="https://github.com/user-attachments/assets/6ae423de-dd98-47c1-a617-f6df747c9293" />
+<img width="853" height="478" alt="whitelist settings menu" src=".github/assets/whitelist.png" />
 
 **Modes:**
 - **OFF**: All mod content is blocked
