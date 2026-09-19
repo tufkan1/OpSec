@@ -8,7 +8,7 @@
 
 <p align="center">
 <a href="https://modrinth.com/mod/opsec-ce"><img alt="Modrinth Downloads" src="https://img.shields.io/modrinth/dt/opsec-ce?logo=modrinth&logoColor=white&label=Modrinth&color=00AF5C"></a>
-<a href="https://www.curseforge.com/minecraft/mc-mods/opsec-community-edition"><img alt="CurseForge Downloads" src="https://img.shields.io/curseforge/dt/opsec-community-edition?logo=curseforge&logoColor=white&label=CurseForge&color=F16436"></a>
+<a href="https://www.curseforge.com/minecraft/mc-mods/opsec-community-edition"><img alt="CurseForge Downloads" src="https://img.shields.io/curseforge/dt/1701709?logo=curseforge&logoColor=white&label=CurseForge&color=F16436"></a>
 <a href="https://github.com/tufkan1/OpSec/releases"><img alt="Supported Minecraft Versions" src="https://img.shields.io/badge/Available%20for-1.20%20%E2%80%93%2026.3-00AF5C"></a>
 <a href="https://github.com/tufkan1/OpSec/releases"><img alt="GitHub Downloads" src="https://img.shields.io/github/downloads/tufkan1/OpSec/total?logo=github&logoColor=white&label=GitHub%20Downloads&color=6e5494"></a>
 <a href="https://github.com/tufkan1/OpSec/releases/latest"><img alt="GitHub Release" src="https://img.shields.io/github/v/release/tufkan1/OpSec?logo=github&logoColor=white&label=Release&color=6e5494"></a>
