@@ -7,7 +7,8 @@
 <p align="center">A client-side Minecraft mod that provides protection against client fingerprinting, tracking exploits, and other privacy focused features.</p>
 
 <p align="center">
-<a href="https://modrinth.com/mod/opsec-ce"><img alt="Modrinth" src="https://img.shields.io/badge/Modrinth-opsec--ce-00AF5C?logo=modrinth&logoColor=white"></a>
+<a href="https://modrinth.com/mod/opsec-ce"><img alt="Modrinth Downloads" src="https://img.shields.io/modrinth/dt/opsec-ce?logo=modrinth&logoColor=white&label=Modrinth&color=00AF5C"></a>
+<a href="https://www.curseforge.com/minecraft/mc-mods/opsec-community-edition"><img alt="CurseForge Downloads" src="https://img.shields.io/curseforge/dt/opsec-community-edition?logo=curseforge&logoColor=white&label=CurseForge&color=F16436"></a>
 <a href="https://github.com/tufkan1/OpSec/releases"><img alt="Supported Minecraft Versions" src="https://img.shields.io/badge/Available%20for-1.20%20%E2%80%93%2026.3-00AF5C"></a>
 <a href="https://github.com/tufkan1/OpSec/releases"><img alt="GitHub Downloads" src="https://img.shields.io/github/downloads/tufkan1/OpSec/total?logo=github&logoColor=white&label=GitHub%20Downloads&color=6e5494"></a>
 <a href="https://github.com/tufkan1/OpSec/releases/latest"><img alt="GitHub Release" src="https://img.shields.io/github/v/release/tufkan1/OpSec?logo=github&logoColor=white&label=Release&color=6e5494"></a>
@@ -21,7 +22,12 @@
 > **Minecraft 26.3 (Wilderness Bound) Support**: 26.3 compatibility has been implemented and thoroughly verified locally on the client and build system across all targets. Because public multiplayer servers are in the early stages of transitioning to 26.3, live multiplayer scenarios are being monitored. If you encounter any issues or compatibility quirks on 26.3, please open a ticket on the **[Issues](https://github.com/tufkan1/OpSec/issues)** page!
 
 > [!WARNING]
-> Only download official OpSec releases directly from **[GitHub Releases](https://github.com/tufkan1/OpSec/releases)**. Builds from untrusted third-party sites or unofficial Discord servers may be trojanized or malicious.
+> Fake phishing sites and Discord servers have been distributing **trojanized** builds of OpSec. Only download OpSec from these official sources:
+> - **[Modrinth](https://modrinth.com/mod/opsec-ce)**
+> - **[CurseForge](https://www.curseforge.com/minecraft/mc-mods/opsec-community-edition)**
+> - **[GitHub Releases](https://github.com/tufkan1/OpSec/releases)**
+>
+> Builds from anywhere else are not official and may be malicious.
 
 ## What it does 
 
