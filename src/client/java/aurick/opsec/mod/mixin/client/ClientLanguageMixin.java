@@ -13,7 +13,9 @@ import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.resources.language.ClientLanguage;
 import net.minecraft.server.packs.PackResources;
 import net.minecraft.server.packs.PathPackResources;
+//? if <26.3 {
 import net.minecraft.server.packs.VanillaPackResources;
+//?}
 import net.minecraft.server.packs.resources.Resource;
 import net.minecraft.server.packs.resources.ResourceManager;
 import org.spongepowered.asm.mixin.Mixin;
@@ -75,7 +77,7 @@ public class ClientLanguageMixin {
         KeybindDefaults.reset();
         if (!opsec$loggedOnce) {
             opsec$loggedOnce = true;
-            Opsec.LOGGER.debug("[OpSec] Translation key tracking: {} vanilla, {} server pack, {} total",
+            Opsec.LOGGER.info("[OpSec] Translation key tracking: {} vanilla, {} server pack, {} total",
                 ModRegistry.getVanillaKeyCount(),
                 ModRegistry.getServerPackKeyCount(),
                 ModRegistry.getTranslationKeyCount());
@@ -96,9 +98,15 @@ public class ClientLanguageMixin {
             @Local Resource resource) {
         
         PackResources pack = resource.source();
+        String packId = pack != null ? pack.packId() : null;
+        String sourcePackId = resource.sourcePackId();
         
         // Vanilla pack - always whitelist
-        if (pack instanceof VanillaPackResources) {
+        if ("vanilla".equals(packId) || "vanilla".equals(sourcePackId)
+            //? if <26.3 {
+            || pack instanceof VanillaPackResources
+            //?}
+        ) {
             original.call(stream, (BiConsumer<String, String>) (key, value) -> {
                 ModRegistry.recordVanillaTranslationKey(key);
                 output.accept(key, value);
@@ -143,7 +151,6 @@ public class ClientLanguageMixin {
         // Path pack resources - try to extract mod ID from pack ID as fallback
         if (pack instanceof PathPackResources) {
             // Try to get mod ID from pack ID (format is usually "mod_id" or similar)
-            String packId = pack.packId();
             if (packId != null && !packId.isEmpty() && !packId.equals("vanilla")
                     && !packId.startsWith("file/") && !opsec$isServerPackId(packId)) {
                 // Clean up pack ID - remove common prefixes/suffixes

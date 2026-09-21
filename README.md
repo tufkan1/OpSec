@@ -19,7 +19,7 @@
 > **Community Fork**: This repository is an AI-assisted open-source community continuation and fork of [aurickk/OpSec](https://github.com/aurickk/OpSec), actively maintained with modern Minecraft updates, bugfixes, and multi-version compatibility.
 
 > [!IMPORTANT]
-> **Minecraft 26.3 (Wilderness Bound) Support**: 26.3 compatibility has been implemented and thoroughly verified locally on the client and build system across all targets. Because public multiplayer servers are in the early stages of transitioning to 26.3, live multiplayer scenarios are being monitored. If you encounter any issues or compatibility quirks on 26.3, please open a ticket on the **[Issues](https://github.com/tufkan1/OpSec/issues)** page!
+> **Minecraft 26.3 (Wilderness Bound) Support**: 26.3 compatibility has been fully updated and verified in both singleplayer and dedicated test server environments against active anti-cheat / anti-mod client probing techniques (translation key resolution, channel spoofing, TrackPack defense). If you encounter any quirks or edge cases, please open a ticket on the **[Issues](https://github.com/tufkan1/OpSec/issues)** page!
 
 > [!WARNING]
 > Fake phishing sites and Discord servers have been distributing **trojanized** builds of OpSec. Only download OpSec from these official sources:
